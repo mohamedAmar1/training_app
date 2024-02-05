@@ -1,5 +1,5 @@
 
 
 class AppSettings {
-  static String phoneIdSharedPreferances = "";
+  static String emailSharedPreferances = "";
 }

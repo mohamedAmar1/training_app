@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "946681383946",
+    "project_id": "training-app-bc3ac",
+    "storage_bucket": "training-app-bc3ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946681383946:android:d25a401deec4e92f7da3f3",
+        "android_client_info": {
+          "package_name": "com.example.login_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8f9lLO1Guvp0hmT1n3v6cPBcZ04S4gzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

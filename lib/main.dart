@@ -1,13 +1,22 @@
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app/Models/Classes/app_settings.dart';
+import 'package:login_app/Views/Screens/Regestration_screens/login_screen.dart';
+import 'package:login_app/firebase_options.dart';
 import 'package:login_app/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Models/Screens/login_screen.dart';
 
 
 
-void main() {
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(HomePage());
 }
 
@@ -26,7 +35,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> checkState() async {
     final SharedPreferences prefs = await
     SharedPreferences.getInstance();
-    widget.logValue = prefs.getString(AppSettings.phoneIdSharedPreferances) ?? "";
+    widget.logValue = prefs.getString(AppSettings.emailSharedPreferances) ?? "";
   }
 
 
@@ -40,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: widget.logValue.length == 0 ? Login():HomeScreen(),
+      home: widget.logValue.isEmpty ? Login():HomeScreen(),
     );
   }
 }

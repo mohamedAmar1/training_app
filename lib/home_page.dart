@@ -1,17 +1,17 @@
 
-
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app/Models/Classes/app_settings.dart';
-import 'package:login_app/Models/Navigation_Screens/home_page.dart';
-import 'package:login_app/Models/Screens/cart_screen.dart';
-import 'package:login_app/Models/utils.dart';
-
+import 'package:login_app/Views/Screens/add_category_page.dart';
+import 'package:login_app/Views/Screens/cart_screen.dart';
+import 'package:login_app/Views/Screens/Regestration_screens/login_screen.dart';
+import 'package:login_app/Views/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Models/Navigation_Screens/categories_page.dart';
-import 'Models/Navigation_Screens/settings_page.dart';
-import 'Models/Screens/login_screen.dart';
+import 'Views/Navigation_Screens/categories_page.dart';
+import 'Views/Navigation_Screens/home_page.dart';
+import 'Views/Navigation_Screens/settings_page.dart';
+
 
 
 
@@ -26,16 +26,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages=[
-    HomePage(),
-    CategoryPage(),
-    SettingPage(),
+    const HomePage(),
+    const CategoryPage(),
+    const SettingPage(),
   ];
   int pageIndex = 0;
   String phone="";
 
   Future<void> getPhone() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    phone = prefs.getString(AppSettings.phoneIdSharedPreferances)??"--";
+    phone = prefs.getString(AppSettings.emailSharedPreferances)??"--";
+    setState(() {
+
+    });
   }
   @override
   void initState() {
@@ -69,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SizedBox(height: 10,),
                         Text("Username : __" , style: TextStyle(color: Colors.white),),
-                        Text("Phone : ${phone}", style: TextStyle(color: Colors.white),),
+                        Text("Email : ${phone}", style: TextStyle(color: Colors.white),),
                       ],
                     ),
                   ),
@@ -83,7 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
               
                   reusableInkwel((){
-                    //-------action -----------
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (context)=> AddCategory())
+                    );
                   },
                     Icons.shopping_cart_checkout  , "Add Product" ,
                       Colors.indigo
@@ -101,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   reusableInkwel((){
                     //-------action -----------
                   },
-                    Icons.shopping_cart_rounded , "Settings" ,
+                    Icons.settings, "Settings" ,
                     Colors.indigo
                   ),
                   Divider(),
@@ -164,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () async {
                 final SharedPreferences prefs = await SharedPreferences.getInstance();
                 prefs.clear();
+                await FirebaseAuth.instance.signOut();
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => Login())
                 );
