@@ -101,9 +101,12 @@ SingleChildScrollView itemCard (List<String>image, String title, int price){
       ),
 
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.network(image[0]),
+          CircleAvatar(
+              radius: 25,
+              foregroundImage:NetworkImage(image[0]??"") ,
+          ),
 
           Text(title.length< 30? title: "", style: const TextStyle(fontSize: 16, color: Colors.white),),
           Text("$price \$", style: const TextStyle(fontSize: 15, color: Colors.white),),
@@ -165,13 +168,13 @@ Container reusableContainer(BuildContext context , String name ,  String item_no
                 CircleAvatar(radius: 55, foregroundImage:NetworkImage(image??"https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg")),
                 Text(name, style:const TextStyle(fontSize: 15, color: Colors.white),),
                 Text("item number: $item_no" , style:const TextStyle(fontSize: 15, color: Colors.white),),
-                IconButton(onPressed:
-                  () async {
-                  await FireBaseCloudStroreUtils.deleteCategory(id);
-                  if (kDebugMode) {
-                    print("Successful delete category");
-                  }
+                IconButton(onPressed:(){
+                  showDialog(context: context,
+                      builder: (context) {
+                        return reusableAlertDialog(context, "Delete category", "Are you shure to delete", id);
+                      });
                 },
+
                  icon:const Icon(Icons.delete,color: Colors.red,)),
               ],
             ),
@@ -248,7 +251,7 @@ Container CartItem (
 }
 
 
-AlertDialog reusableAlertDialog(BuildContext context , String title, String content, Function fun ) {
+AlertDialog reusableAlertDialog(BuildContext context , String title, String content, String id ) {
   return AlertDialog(
     title: Text(title),
     content: SingleChildScrollView(
@@ -261,18 +264,23 @@ AlertDialog reusableAlertDialog(BuildContext context , String title, String cont
     actions: <Widget>[
       TextButton(
           child: const Text('Ok'),
-          onPressed: () {
-            fun;
-          }
+          onPressed:() async {
+            await FireBaseCloudStroreUtils.deleteCategory(id);
+            Navigator.pop(context);
+          },
       ),
 
       TextButton(
         child: const Text('Cancel'),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
     ],
   );
 }
+
+
 
 
 

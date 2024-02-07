@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:login_app/Models/Classes/app_settings.dart';
 import 'package:login_app/Models/Core/firebase_auth.dart';
 import 'package:login_app/Views/Screens/Regestration_screens/signup_screen.dart';
@@ -63,7 +64,8 @@ class _LoginState extends State<Login> {
                   20, MediaQuery.of(context).size.height * 0.09, 20, 0),
               child: Column(
                 children: [
-                  Image.asset("assets/images/mylogo.png",width: 300,),
+                  Image.asset("assets/images/mylogo.png",width: 300,).animate().
+                  fadeIn(duration: const Duration(seconds: 2)).scale(duration: const Duration(seconds: 2)).shimmer(),
                   const SizedBox(
                     height: 10,
                   ),
@@ -145,7 +147,7 @@ class _LoginState extends State<Login> {
                             MaterialPageRoute(builder: (context) => HomeScreen(
                                 phoneNumber: _emailTextController.text,
                                 password: _passTextController.text,
-                              ),
+                              ).animate().fadeIn(),
                             ));
                       }else{
                         var snackBar = const SnackBar(
@@ -175,7 +177,7 @@ class _LoginState extends State<Login> {
                   ),
                   reusableButton(context, false, () {
                     Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=>const SignUp())
+                    MaterialPageRoute(builder: (context)=>const SignUp().animate().color(delay: Duration(milliseconds: 700)))
                     );
                   }),
                   const SizedBox(

@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:login_app/Models/Classes/product_model.dart';
 import 'package:login_app/Views/utils.dart';
 import 'package:login_app/Servcies/service_model.dart';
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return isLoading?
-    const Center(child: CircularProgressIndicator(color: Colors.deepPurple),):
+    const Center(child: CircularProgressIndicator(color: Colors.deepPurple,),):
     ListView.builder(
           itemCount: productList.length,
           itemBuilder: (context, index) {
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
               desicrption: productList[index].description??"--" ,
             ),)
             );
-        },);
+        },).animate().fadeIn(duration: Duration(milliseconds: 500));
       },
       padding: const EdgeInsets.all(10),
     );

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:login_app/Models/Core/firebase_cloud_store_utils.dart';
 import '../utils.dart';
 
@@ -40,7 +41,7 @@ class _CategoryPageState extends State<CategoryPage> {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (BuildContext context , int index){
               Map<String, dynamic> data = snapshot.data!.docs[index].data()! as Map<String, dynamic>;
-              return reusableContainer(context,data["name"] ,data["item_no"],data["image_url"],snapshot.data!.docs[index].id);
+              return reusableContainer(context,data["name"] ,data["item_no"],data["image_url"],snapshot.data!.docs[index].id).animate().fadeIn(duration: Duration(milliseconds: 500));
           }
         );
 

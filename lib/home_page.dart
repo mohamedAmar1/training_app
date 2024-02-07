@@ -1,6 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:login_app/Models/Classes/app_settings.dart';
 import 'package:login_app/Views/Screens/add_category_page.dart';
 import 'package:login_app/Views/Screens/cart_screen.dart';
@@ -65,19 +66,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 300,
                     child: Column(
                       children: [
-                        SizedBox(height: 50,),
+                        const SizedBox(height: 50,),
                         CircleAvatar(
                           radius: 80,
                           child: Image.asset("assets/images/mylogo.png"),
                         ),
-                        SizedBox(height: 10,),
-                        Text("Username : __" , style: TextStyle(color: Colors.white),),
-                        Text("Email : ${phone}", style: TextStyle(color: Colors.white),),
+                        const SizedBox(height: 10,),
+                        const Text("Username : __" , style: TextStyle(color: Colors.white),),
+                        Text("${phone}", style: const TextStyle(color: Colors.white),),
                       ],
                     ),
                   ),
               
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
                   reusableInkwel((){
                     //-------action -----------
                     },
@@ -87,7 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
               
                   reusableInkwel((){
                     Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=> AddCategory())
+                    MaterialPageRoute(builder: (context)=>const AddCategory().
+                    animate().moveY(delay: const Duration(milliseconds: 400),))
                     );
                   },
                     Icons.shopping_cart_checkout  , "Add Product" ,
@@ -96,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
               
                   reusableInkwel((){
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CartPage(),)
+                      MaterialPageRoute(builder: (context) => const CartPage(),)
                     );
                   },
                     Icons.shopping_cart_rounded , " Cart" ,
@@ -109,24 +111,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     Icons.settings, "Settings" ,
                     Colors.indigo
                   ),
-                  Divider(),
+                  const Divider(),
               
                   reusableInkwel(() => _showMyDialog(),
                       Icons.exit_to_app  , "Log out",
                       Colors.redAccent
                        ),
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
                   InkWell(
                     onTap: (){
                       //------go to developer infoPage
                     },
-                      child: Text("About  !!" )),
+                      child: const Text("About  !!" )),
               
               
                 ]
               ),
             ),
-      ),
+      ).animate().fadeIn(duration: Duration(milliseconds: 400)),
 
       body:pages[pageIndex],
       bottomNavigationBar:BottomNavigationBar(
@@ -171,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 prefs.clear();
                 await FirebaseAuth.instance.signOut();
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Login())
+                    MaterialPageRoute(builder: (context) => const Login())
                 );
               },
             ),
@@ -183,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ],
-        );
+        ).animate().flipV();
       },
     );
   }

@@ -40,7 +40,7 @@ class _SettingPageState extends State<SettingPage> {
         SizedBox(height: MediaQuery.of(context).size.height *.04,),
 
         const Center(child: Text("Username : --",style: TextStyle(fontSize: 16),)),
-        Center(child: Text("Email : $Email",style: const TextStyle(fontSize: 16),)),
+        Center(child: Text(Email,style: const TextStyle(fontSize: 16),)),
 
         SizedBox(height: MediaQuery.of(context).size.height *.04,),
         reusableListTitle((){}, Icons.edit ,"Edit Profile", "Manage your account"),
